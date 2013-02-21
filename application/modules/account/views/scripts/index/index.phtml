@@ -1,0 +1,21 @@
+<?= $this->breadcrumb( $this->breadcrumb ) ?>
+<div class="row">
+  <div class="span2">
+    &nbsp;
+  </div>
+  <div class="span6">
+    <h1>Mon compte</h1>
+    <table class="table table-striped table-bordered">
+      <tbody>
+        <tr><td><a href="<?= $this->url(array('module' => 'account', 'controller' => 'profile'), 'default', true)?>">Profil</a></td></tr>
+        <tr><td><a href="<?= $this->url(array('module' => 'account', 'controller' => 'drawing'), 'default', true)?>">Mes dessins</a></td></tr>
+        <tr><td><a href="<?= $this->url(array('module' => 'account', 'controller' => 'drawing', 'action' => 'new'), 'default', true)?>">Ajouter un dessin</a></td></tr>
+        <tr><td><a href="<?= $this->url(array('module' => 'account', 'controller' => 'comment'), 'default', true)?>">Commentaires</a></td></tr>
+        <tr><td><a href="<?= $this->url(array('module' => 'account', 'controller' => 'session', 'action' => 'destroy'), 'default', true) ?>">Déconnection</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="span2">
+    &nbsp;
+  </div>
+</div>

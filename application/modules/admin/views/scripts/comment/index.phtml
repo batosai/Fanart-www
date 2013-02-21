@@ -1,0 +1,31 @@
+<?= $this->breadcrumb( $this->breadcrumb ) ?>
+<div class="row">
+  <div class="span10">
+    <h1>Commentaires</h1>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Dessins</th>
+          <th>Commentaire</th>
+          <th>Login</th>
+          <th>Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach($this->paginator as $comment): ?>
+        <tr>
+          <td><?= $this->escape($comment->id) ?></td>
+          <td><a href="#"><?= $this->escape($comment->name) ?></a></td>
+          <td><?= $this->escape($comment->value) ?></td>
+          <td><?= $this->escape($comment->login) ?></td>
+          <td><?= $this->date($this->escape($comment->created_at)) ?></td>
+          <td><a href="<?= $this->url(array('module' => 'admin', 'controller' => 'comment', 'action' => 'delete', 'id' => $comment->id), 'default', true)?>" class="confirm">Supprimer</a></td>
+        </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+    <?= $this->paginationControl($this->paginator, null, '_pagination.phtml') ?>
+  </div>
+</div>

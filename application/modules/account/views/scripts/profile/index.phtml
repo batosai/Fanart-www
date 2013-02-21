@@ -1,0 +1,14 @@
+<?= $this->breadcrumb( $this->breadcrumb ) ?>
+<div class="row">
+  <div class="span2">
+    <?php $avatar = $this->identity->findAvatar(); ?>
+    <?php if ($avatar): ?><img src="<?= $this->fileUrl($avatar, 128, 128, 'avatar') ?>?<?=time()?>" width="128" height="128" alt="" /><?php endif; ?>
+    &nbsp;
+  </div>
+  <div class="span6">
+      <?= $this->form ?>
+  </div>
+  <div class="span2">
+    &nbsp;
+  </div>
+</div>

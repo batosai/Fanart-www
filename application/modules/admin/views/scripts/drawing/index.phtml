@@ -1,0 +1,41 @@
+<?= $this->breadcrumb( $this->breadcrumb ) ?>
+<div class="row">
+  <div class="span10">
+     <h1>Dessins</h1>
+     <table class="table table-striped table-bordered">
+       <thead>
+         <tr>
+           <th>#</th>
+           <th>Nom / de</th>
+           <th>Catégorie</th>
+           <th>Commentaire</th>
+           <th>Activé</th>
+           <th>Date</th>
+           <th style="width:120px;">Action</th>
+         </tr>
+       </thead>
+       <tbody>
+         <?php foreach($this->paginator as $drawing): ?>
+           <?php $user = $drawing->findUser(); ?>
+         <tr>
+           <td><?= $drawing->id ?></td>
+           <td>
+             <a href="<?= $this->fileUrl($drawing->findFile(), 210, 280, 'get') ?>" class="blank fancy"><?= $drawing->name ?></a> / 
+             <a href="<?= $this->userUrl($user) ?>" class="blank"><?= $user->login ?></a>
+           </td>
+           <td><?= $drawing->sub_category_name ?></td>
+           <td><?= $drawing->comment ?></td>
+           <td><?= $drawing->visible ? 'oui' : 'non' ?></td>
+           <td><?= $this->date($drawing->created_at) ?></td>
+           <td>
+             <?php if (!$drawing->visible): ?><a href="<?= $this->url(array('module' => 'admin', 'controller' => 'drawing', 'action' => 'accept', 'id' => $drawing->id), 'default', true) ?>" class="confirm">Accepter</a> |<?php endif; ?>
+             <a href="<?= $this->url(array('module' => 'admin', 'controller' => 'drawing', 'action' => 'edit', 'id' => $drawing->id), 'default', true) ?>">Modifier</a> |
+             <a href="<?= $this->url(array('module' => 'admin', 'controller' => 'drawing', 'action' => 'delete', 'id' => $drawing->id), 'default', true) ?>" class="confirm">Supprimer</a>
+           </td>
+         </tr>
+         <?php endforeach; ?>
+       </tbody>
+     </table>
+     <?= $this->paginationControl($this->paginator, null, '_pagination.phtml') ?>
+  </div>
+</div>

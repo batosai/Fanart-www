@@ -1,0 +1,113 @@
+<?php $this->headTitle()->prepend(' | '.$this->escape($this->drawing->name)) ?>
+
+<?php $this->headMeta()->appendName('og:image', $this->serverUrl($this->fileUrl($this->file, 320, 480, 'cache-full'))); ?>
+<?php $this->headMeta()->appendName('description', "Retrouver une multitude de dessins fan art de " . $this->escape($this->drawing->name)); ?>
+<?= $this->breadcrumb( $this->breadcrumb ) ?>
+<div class="row">
+  <div class="span4">
+    <ul class="thumbnails">
+      <li>
+        <div class="thumbnail">
+        <a href="<?= $this->fileUrl($this->file, 320, 480, 'get') ?>" class="fancy"><img src="<?= $this->fileUrl($this->file, 320, 480, 'cache-full') ?>" alt="<?= $this->drawing->name ?>" /></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="span6">
+    <h1><?= $this->escape($this->drawing->name) ?></h1>
+    <h3>Par <a href="<?= $this->userUrl($this->user) ?>"><?= $this->escape($this->user->login) ?></a></h3>
+	<p><strong>Catégorie : </strong> <a href="<?= $this->subcategoryUrl($this->subcategory) ?>"><?= $this->subcategory->name ?></a></p>
+    <?php if ($this->drawing->comment): ?><p><strong>Note : </strong><?= nl2br(ucfirst($this->escape($this->drawing->comment))) ?></p><?php endif; ?>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span4">
+    <div class="share share-twitter">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-url="<?= $this->serverUrl($this->drawingUrl($this->drawing->id, $this->drawing->name)) ?>" data-count="none" data-lang="fr">Tweeter</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+    </div>
+    <div class="share share-gplus">
+      <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
+        {lang: 'fr'}
+      </script>
+      <g:plusone count="false" href="<?= $this->serverUrl($this->drawingUrl($this->drawing->id, $this->drawing->name)) ?>"></g:plusone>
+    </div>
+    <div class="share share-fb">
+      <div id="fb-root"></div>
+      <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));</script>
+
+      <div class="fb-like" data-href="<?= $this->serverUrl($this->drawingUrl($this->drawing->id, $this->drawing->name)) ?>" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+		</div>
+    <div class="clear"></div>
+
+    <br /><br />
+    <iframe src="http://widgets.itunes.apple.com/appstore.html?wtype=11&app_id=null&country=fr&partnerId=0&affiliate_id=0&ww=320&t=Mes%2520applications&d=Retrouver%2520fanart%2520sur%2520iphone.%250AToutes%2520les%2520sorties%2520manga%2520avec%2520Manga%2520Next&pl=0,495007505,524486749" frameborder=0 style="overflow-x:hidden;overflow-y:hidden;width:320px;height:300px;border:0px" ></iframe>
+		
+		<div class="advertising">
+			<script type="text/javascript">
+				<!--
+				google_ad_client = "ca-pub-7709867768399573";
+				/* fan art v4 */
+				google_ad_slot = "8525325754";
+				google_ad_width = 300;
+				google_ad_height = 250;
+				//-->
+			</script>
+			<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+		</div>
+
+  </div>
+  <div class="span6">
+    <?php if ($this->comments->count()): ?>
+      <h2>Commentaires</h2>
+      <?php foreach($this->comments as $comment): ?>
+        <?php $user = $comment->findUser(); ?>
+        <?php if ($file = $comment->findAvatar()): ?>
+          <div class="row">
+            <div class="span1">
+              <ul class="thumbnails">
+                <li>
+                  <a href="<?= $this->userUrl($user) ?>" class="span1">
+                    <img class="thumbnail" width="45" height="45" src="<?= $this->fileUrl($file, 45, 45, 'avatar') ?>" alt="">
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="span5">
+            <blockquote>
+              <p><?= nl2br(ucfirst($this->escape($comment->value))) ?></p>
+              <small>Par <a href="<?= $this->userUrl($user) ?>"><?= $this->escape($comment->login) ?></a> le <?= $this->date($comment->created_at)?></small>
+              <?php if ($comment->note): ?><img height="12" src="<?= $this->baseUrl('/img/stars'.$comment->note.'.gif') ?>" alt=""><?php endif; ?>
+            </blockquote>
+            </div>
+          </div>
+        <?php else: ?>
+          <blockquote>
+            <p><?= nl2br(ucfirst($this->escape($comment->value))) ?></p>
+            <small>Par <a href="<?= $this->userUrl($user) ?>"><?= $this->escape($comment->login) ?></a> le <?= $this->date($comment->created_at)?></small>
+          <?php if ($comment->note): ?><img height="12" src="<?= $this->baseUrl('/img/stars'.$comment->note.'.gif') ?>" alt=""><?php endif; ?>
+          </blockquote>
+        <?php endif; ?>
+      <?php endforeach;?>
+    <?php endif; ?>
+    
+    <?php if ($this->hasIdentity): ?>
+      <div>
+        <?= $this->form ?>
+      </div>
+    <?php else : ?>
+      <div>
+        <h2>Ajouter un commentaires</h2>
+        <a href="<?= $this->url(array('module' => 'account', 'controller' => 'session', 'action' => 'new'), 'default', true)?>">Connexion</a> | 
+        <a href="<?= $this->url(array('controller' => 'signup'), 'default', true)?>">Inscription</a>
+      </div>
+    <?php endif; ?>
+
+  </div>
+</div>

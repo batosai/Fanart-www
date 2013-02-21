@@ -1,0 +1,29 @@
+<?php $this->headTitle()->prepend(' | Dessins, peintures, partager vos créations') ?>
+<?= $this->breadcrumb( $this->breadcrumb ) ?>
+
+
+<ul class="thumbnails">
+  <?php foreach($this->paginator as $drawing): ?>
+  <li class="thumbnail">
+    <a href="<?= $this->drawingUrl($drawing->drawing_id, $drawing->drawing_name) ?>"><img src="<?= $this->fileUrl($drawing, 210, 280) ?>" width="210" height="280" alt="<?= $drawing->drawing_name ?>" /></a>
+  </li>
+  <?php endforeach;?>
+</ul>
+<?= $this->paginationControl($this->paginator, null, '_pagination.phtml') ?>
+
+<iframe src="http://widgets.itunes.apple.com/appstore.html?wtype=0&app_id=495007505&country=fr&partnerId=0&affiliate_id=0&ww=320" frameborder=0 style="overflow-x:hidden;overflow-y:hidden;width:320px;height:300px;border:0px" ></iframe>
+
+<iframe src="http://widgets.itunes.apple.com/appstore.html?wtype=0&app_id=524486749&country=fr&partnerId=0&affiliate_id=0&ww=320" frameborder=0 style="overflow-x:hidden;overflow-y:hidden;width:320px;height:300px;border:0px" ></iframe>
+
+<div class="advertising advertising-float">
+	<script type="text/javascript">
+		<!--
+		google_ad_client = "ca-pub-7709867768399573";
+		/* fan art v4 */
+		google_ad_slot = "8525325754";
+		google_ad_width = 300;
+		google_ad_height = 250;
+		//-->
+	</script>
+	<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+</div>

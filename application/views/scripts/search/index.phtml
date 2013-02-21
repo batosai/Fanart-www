@@ -1,0 +1,10 @@
+<?php $this->headTitle()->prepend('Fan art - Recherche '.$this->q) ?>
+<?= $this->breadcrumb( $this->breadcrumb ) ?>
+<ul class="thumbnails">
+  <?php foreach($this->paginator as $drawing): ?>
+  <li class="thumbnail">
+      <a href="<?= $this->drawingUrl($drawing->drawing_id, $drawing->title) ?>"><img src="<?= $drawing->image ?>" width="210" height="280" alt="<?= $drawing->title ?>" /></a>
+  </li>
+  <?php endforeach;?>
+</ul>
+<?= $this->paginationControl($this->paginator, null, '_pagination.phtml') ?>

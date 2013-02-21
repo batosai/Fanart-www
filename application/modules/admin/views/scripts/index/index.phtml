@@ -1,0 +1,25 @@
+<?= $this->breadcrumb( $this->breadcrumb ) ?>
+<div class="row">
+  <div class="span3">
+    &nbsp;
+  </div>
+  <div class="span4">
+    <h1>Mon compte</h1>
+    <table class="table table-striped table-bordered">
+      <tbody>
+        <tr><td><a href="<?= $this->url(array('module' => 'admin', 'controller' => 'user'), 'default', true) ?>">Utilisateurs</a></td></tr>
+        <tr><td><a href="<?= $this->url(array('module' => 'admin', 'controller' => 'comment'), 'default', true) ?>">Commentaires</a></td></tr>
+        <tr><td><a href="<?= $this->url(array('module' => 'admin', 'controller' => 'drawing'), 'default', true) ?>">Dessins</a></td></tr>
+        <tr><td><a href="<?= $this->url(array('module' => 'admin', 'controller' => 'category'), 'default', true) ?>">Catégories</a></td></tr>
+        <tr><td><a href="<?= $this->url(array('module' => 'admin', 'controller' => 'subcategory'), 'default', true) ?>">Sous-Catégories</a></td></tr>
+        <tr><td><a href="<?= $this->url(array('module' => 'admin', 'controller' => 'subcategory', 'action' => 'new'), 'default', true) ?>">Ajouter une Sous-Catégories</a></td></tr>
+        <tr><td><a href="<?= $this->url(array('module' => 'admin', 'controller' => 'statistic'), 'default', true) ?>">Statitique iPhone</a></td></tr>
+        <tr><td></td></tr>
+        <tr><td><a href="<?= $this->url(array('module' => 'admin', 'controller' => 'session', 'action' => 'destroy'), 'default', true) ?>">Deconnexion</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="span3">
+    &nbsp;
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<?= $this->breadcrumb( $this->breadcrumb ) ?>
+<div class="row">
+  <div class="span10">
+    <h1>Commentaires</h1>
+    <p>Ceci est la liste de toute les commentaires qui ont été posté sur l'un de vos dessins, pour accéder au <strong>fanart</strong> veuillez cliquer sur son nom</p>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Dessins</th>
+          <th>Nom du dessin</th>
+          <th>Commentaire</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach($this->paginator as $comment): ?>
+        <tr>
+          <td><?= $this->escape($comment->id) ?></td>
+          <td><a href="<?= $this->drawingUrl($comment->drawing_id, $comment->drawing_name) ?>"><?= $this->escape($comment->drawing_name) ?></a></td>
+          <td><?= $this->escape($comment->login) ?></td>
+          <td><?= $this->escape($comment->value) ?></td>
+          <td><?= $this->date($this->escape($comment->created_at)) ?></td>
+        </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+    <?= $this->paginationControl($this->paginator, null, '_pagination.phtml') ?>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<?= $this->breadcrumb( $this->breadcrumb ) ?>
+<div class="row">
+  <div class="span2">
+    &nbsp;
+  </div>
+  <div class="span6">
+      <?= $this->form ?>
+      <a href="<?= $this->url(array('controller' => 'signup'), 'default', true)?>">Inscription</a> | 
+      <a href="<?= $this->url(array('module' => 'account', 'controller' => 'session', 'action' => 'password'), 'default', true)?>">Mot de passe oublié ?</a>
+  </div>
+  <div class="span2">
+    &nbsp;
+  </div>
+</div>

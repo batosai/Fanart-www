@@ -1,0 +1,122 @@
+<?= $this->doctype(); ?>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <?php $this->headTitle()->prepend('Fan art') ?>
+  <?php if($this->request()->getControllerName() != 'drawing' && ($this->request()->getControllerName() != 'category')): ?>
+  <?php $this->headMeta()->appendName('description', "Retrouver une multitude de dessins fan art de mangas,jeux vidéos,comics, bd et plein d'autre. Rejoigner la communauté, faite vous des amis et partager vos dessins sur fan art."); ?>
+  <?php endif; ?>
+    <?php $this->headMeta()->appendName('keywords', "fan art,dessins,dessin,fanart,fanar,desin,desins,manga,mangas,jeux videos, jeux vidéos, jeu video,jeux video,comics,comic,bd,bande dessinées,bande dessinée,bandes dessinee,bande dessiné,naruto,drangon ball,one piece,death note,zelda,mario,spiderman,spider man,superman,batman,bat man,xmen,x-men,x men"); ?>
+  <?= $this->headTitle() ?>
+  <?= $this->headMeta() ?>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Language" content="fr" />
+  <meta name="apple-itunes-app" content="app-id=495007505"/>
+  <?php
+    $this->headLink()->appendStylesheet($this->baseUrl('/css/bootstrap.min.css'))
+                     ->appendStylesheet($this->baseUrl('/css/bootstrap-responsive.css'))
+                     ->appendStylesheet($this->baseUrl('/css/style.css'))
+                     ->appendStylesheet($this->baseUrl('/css/jquery-ui.css'))
+                     ->appendStylesheet($this->baseUrl('/css/jquery-fancybox.css'))
+                     ->headLink(array('rel' => 'shortcut icon', 'href' => $this->baseUrl('/img/favicon.ico')), 'PREPEND');
+  ?>
+
+  <?= $this->headLink() ?>
+
+  <script language="javascript">
+	img = new Image();
+	img.src = "<?= $this->baseUrl('/img/loader.gif') ?>";
+  </script>
+</head>
+
+<body>
+  <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container">
+            <a class="brand" href="<?= $this->baseUrl('/') ?>">Fan Art</a>
+            <div class="nav-collapse">
+              <ul class="nav">
+                <li <?= $this->getRequest()->getControllerName() == 'index' ? 'class="active"' : '' ?> ><a href="<?= $this->baseUrl('/') ?>">Accueil</a></li>
+                <li <?= $this->getRequest()->getControllerName() == 'category' ? 'class="active"' : '' ?> ><a href="<?= $this->categoryUrl() ?>">Catégories</a></li>
+                <li <?= $this->getRequest()->getControllerName() == 'user' ? 'class="active"' : '' ?> ><a href="<?= $this->usersUrl() ?>">Utilisateurs</a></li>
+                <li <?= $this->getRequest()->getControllerName() == 'contact' ? 'class="active"' : '' ?> ><a href="<?= $this->url(array('controller' => 'contact'), 'default', true)?>">Contact</a></li>
+              </ul>
+              <form class="navbar-search pull-left"  action="<?= $this->url(array('controller' => 'search'), 'default', true)?>" method="get">
+                <input type="text" name="q" class="search-query" placeholder="Recherche" />
+              </form>
+              <?php if (!$this->hasIdentity): ?>
+              <form class="signin navbar-search pull-right"  action="<?= $this->url(array('module' => 'account', 'controller' => 'session', 'action' => 'create'), 'default', true)?>" method="post">
+                <input class="search-query" type="text" name="login" placeholder="Pseudo">
+                <input class="search-query" type="password" name="password" placeholder="Mot de passe">
+                <button class="btn" type="submit">Connexion</button>
+              </form>
+              <?php else: ?>
+                <ul class="nav pull-right">
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle"
+                              data-toggle="dropdown">
+                      <?php $avatar = $this->identity->findAvatar(); ?>
+                      <?php if ($avatar): ?><img src="<?= $this->fileUrl($avatar, 20, 20, 'avatar') ?>" width="20" height="20" alt="" /><?php endif; ?>
+                      <?= isset($this->identity->login) ? $this->identity->login : $this->identity->email ?>
+                      <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <?php if (isset($this->identity->login)): ?>
+                      <li><a href="<?= $this->url(array('module' => 'account', 'controller' => 'profile'), 'default', true)?>">Profil</a></li>
+                      <li><a href="<?= $this->url(array('module' => 'account', 'controller' => 'drawing'), 'default', true)?>">Mes dessins</a></li>
+                      <li><a href="<?= $this->url(array('module' => 'account', 'controller' => 'drawing', 'action' => 'new'), 'default', true)?>">Ajouter un dessin</a></li>
+                      <li><a href="<?= $this->url(array('module' => 'account', 'controller' => 'comment'), 'default', true)?>">Commentaires</a></li>
+                      <li class="divider"></li>
+                      <?php endif; ?>
+                      <li><a href="<?= $this->url(array(
+                                                        'module' => ($this->getRequest()->getModuleName() == 'admin') ? 'admin' : 'account',
+                                                        'controller' => 'session',
+                                                        'action' => 'destroy'
+                                                       ), 'default', true) ?>">Déconnection</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              <?php endif; ?>
+            </div><!--/.nav-collapse -->
+          </div>
+        </div>
+      </div>
+
+  <div class="container">
+
+    <img src="<?= $this->baseUrl('/img/logo.jpg') ?>" width="940" height="170" alt="" />
+    <?= $this->layout()->content ?>
+    <footer class="footer">
+      <p>&copy; chaufourier.fr - fanart v4.1</p>
+    </footer>
+
+  </div> <!-- /container -->
+  <script type="text/javascript">
+    var BASE_URL = "<?= $this->baseUrl('/'); ?>";
+  </script>
+  <?= $this->headScript()->appendFile($this->baseUrl('/js/jquery.js'), 'text/javascript')
+                         ->appendFile($this->baseUrl('/js/jquery-ui.min.js'), 'text/javascript')
+                         ->appendFile($this->baseUrl('/js/jquery-tablesorter.min.js'), 'text/javascript')
+                         ->appendFile($this->baseUrl('/js/jquery-mousewheel.min.js'), 'text/javascript')
+                         ->appendFile($this->baseUrl('/js/jquery-fancybox.min.js'), 'text/javascript')
+                         ->appendFile($this->baseUrl('/js/jquery-ui.stars.min.js'), 'text/javascript')
+                         ->appendFile($this->baseUrl('/js/bootstrap.min.js'), 'text/javascript')
+                         ->appendFile($this->baseUrl('/js/application.js'), 'text/javascript')
+  ?>
+  <?php if (APPLICATION_ENV == 'production'): ?>
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-2577921-5']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+  <?php endif; ?>
+</body>
+</html>
