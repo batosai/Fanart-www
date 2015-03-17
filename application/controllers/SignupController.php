@@ -3,7 +3,7 @@
 class SignupController extends Zend_Controller_Action
 {
     public function init()
-    {
+    {exit;
         $this->view->breadcrumb = array(
           array(
             'name' => 'Accueil',

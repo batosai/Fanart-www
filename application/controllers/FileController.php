@@ -14,7 +14,8 @@ class FileController extends Zend_Controller_Action
 
   public function getAction()
   {
-    if (!$file = $this->_table->findByGuid($this->_getParam('guid'))) {
+    $guid = str_replace('.jpg', '', $this->_getParam('guid'));
+    if (!$file = $this->_table->findByGuid($guid)) {
       return;
     }
 

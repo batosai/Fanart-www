@@ -38,7 +38,7 @@ class Model_File extends Zend_Db_Table_Row_Abstract
     $this->_filepath = $filepath;
     $this->filename = basename($filepath);
   }
-  
+
   public function rename()
   {
     list($prefix) = explode('.', $this->fk_name);
@@ -67,6 +67,16 @@ class Model_File extends Zend_Db_Table_Row_Abstract
     else {
       throw new Exception('Model_File object unset');
     }
+  }
+
+  public function getDrawing()
+  {
+    $table = new Model_DbTable_Drawings();
+
+    $select = $table->select()->where('id = ?', $this->fk_id)
+                              ->limit(1);
+
+    return $table->fetchRow($select);
   }
 
   public static function getDir()

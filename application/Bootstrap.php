@@ -96,7 +96,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     $frontController = $this->getResource('frontController');
     $frontController->registerPlugin(new Plugin_Navigation());
   }
-  
+
   protected function _initNavigation()
   {
     return $navigation = new Zend_Navigation();
@@ -145,7 +145,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
       $debug = new ZFDebug_Controller_Plugin_Debug($options);
 
       $frontController = $this->getResource('frontController');
-      $frontController->registerPlugin($debug);
+      // $frontController->registerPlugin($debug);
     }
   }
 }
